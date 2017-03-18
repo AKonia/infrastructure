@@ -1,6 +1,5 @@
-#include "bin_tree.h"
 #include <gtest/gtest.h>
-
+#include "../include/bin_tree.h"
 
 TEST(BinaryTree, search_in_empty_tree) {
   bin_tree simpleTree;
