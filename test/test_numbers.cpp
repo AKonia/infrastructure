@@ -19,12 +19,12 @@ TEST(NumbersTest, ignoring_null_input) {
   const int arr_size = 5;
   int *arr = 0;
   int *gen_arr = gen_array_of_mults(arr_size, arr);
-  EXPECT_TRUE(gen_arr == 0);
+  EXPECT_EQ(gen_arr, nullptr);
 }
 
 TEST(NumbersTest, will_accept_size_eq_one) {
   const int arr_size = 1;
   int arr[arr_size] = {1};
   int *gen_arr = gen_array_of_mults(arr_size, arr);
-  EXPECT_TRUE(gen_arr == 0);
+  EXPECT_EQ(gen_arr, nullptr);
 }
