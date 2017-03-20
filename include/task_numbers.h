@@ -6,6 +6,8 @@ int * gen_array_of_mults(const int arr_size, int * arr)
     if (!arr || arr_size == 1)
         return 0;
     int *res_arr = new int[arr_size];
+    for(int i = 0; i < arr_size; i++)
+        res_arr[i] = 1;
     int mul = 1;
     for (int i = 0; i < arr_size; i++)
         mul *= arr[i];
