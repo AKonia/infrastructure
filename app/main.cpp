@@ -4,6 +4,9 @@
 #include "pathfinding_dijkstra.h"
 
 using std::list;
+using std::ostream;
+using std::cout;
+using std::endl;
 
 struct point {
   int x, y;
