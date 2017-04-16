@@ -1,36 +1,113 @@
 #ifndef _GRAPH_H_
 #define _GRAPH_H_
 
-#include <list>
-#include <vector>
-#include <utility>
+#include "graph_declaration.h"
 
-#include "vertex.h"
-
-using std::list;
-using std::pair;
-using std::vector;
-
-template< typename StoragingType > // Граф задаётся количеством вершин, затем для каждой вершины прописываются рёбра
-class Graph
+template< typename StoragingType >
+Graph<StoragingType>::Graph()
 {
-    private:
-        vector< Vertex<StoragingType> > *vertices;
+    vertices = 0;
+}
 
-    public:
-        Graph(); // обнулить массив вершин и их количество, аналогично с рёбрами
-        explicit Graph(int qOfVertices); // new vector<>[q]; new edges<>[q];
-        Graph(const Graph & rhs);
-        ~Graph(); // удалить массив списков рёбер
+template< typename StoragingType >
+Graph<StoragingType>::Graph(int qOfVertices)
+{
+    vertices = new vector< Vertex<StoragingType> >(qOfVertices);
+}
 
-        void insertVertices(int qOfVertices);
-        void setEdge(int vNumberFrom, int vNumberTo, int eWeight);
-        void removeEdge(int vNumberFrom, int vNumberTo);
-        int getEdgeWeight(int vNumberFrom, int vNumberTo);
-        const list< pair< int, int > > & getEdgesList(int vNumber) const;
+template< typename StoragingType >
+Graph<StoragingType>::Graph(const Graph<StoragingType> & rhs)
+{
+    vertices = new vector< Vertex<StoragingType> >((rhs.vertices)->size());
+    if(0 == rhs.vertices)
+        vertices = 0;
+    *vertices = *(rhs.vertices);
+}
 
-        int getVertexCount();
-        int getEdgesCount();
-};
+template< typename StoragingType >
+Graph<StoragingType>::~Graph()
+{
+    delete vertices;
+}
+
+template< typename StoragingType >
+void Graph<StoragingType>::insertVertices(int qOfVertices)
+{
+    if(0 == vertices)
+    {
+        *this = Graph(qOfVertices);
+        return;
+    }
+    else
+        vertices->insert(vertices->end(), qOfVertices, Vertex<StoragingType>());
+}
+
+template< typename StoragingType >
+void Graph<StoragingType>::setEdge(int vNumberFrom, int vNumberTo, int eWeight)
+{
+    if(vNumberFrom >= (int)vertices->size() || vNumberTo >= (int)vertices->size() || vNumberTo == vNumberFrom || vNumberTo < 0 || vNumberFrom < 0)
+        throw -1; // throw
+
+    (*vertices)[vNumberFrom].setEdge(vNumberTo, eWeight);
+    (*vertices)[vNumberTo].setEdge(vNumberFrom, eWeight);
+}
+
+template< typename StoragingType >
+void Graph<StoragingType>::removeEdge(int vNumberFrom, int vNumberTo)
+{
+    setEdge(vNumberFrom, vNumberTo, 0);
+}
+
+template< typename StoragingType >
+int Graph<StoragingType>::getEdgeWeight(int vNumberFrom, int vNumberTo)
+{
+    if(vNumberTo >= vertices->size() || vNumberTo == vNumberFrom || vNumberTo < 0)
+        throw -1; // exception
+
+    for(list< pair<int, int> >::iterator j = getEdgesList(vNumberFrom).begin(); j != getEdgesList(vNumberFrom).end(); ++j)
+        if(j->first == vNumberTo)
+            return j->second;
+    return 0; // Возвр. ноль, если ребра нет
+}
+
+template< typename StoragingType >
+list< pair< int, int > > & Graph<StoragingType>::getEdgesList(int vNumber)
+{
+    if(vNumber >= (int)vertices->size() || vNumber < 0)
+        throw -1;
+    return (*vertices)[vNumber].getEdgesList();
+}
+
+template< typename StoragingType >
+const Vertex<StoragingType> &Graph<StoragingType>::getVertex(int vNumber)
+{
+    if(vNumber >= (int)vertices->size() || vNumber < 0)
+        throw -1;
+    return (*vertices)[vNumber];
+}
+
+
+template< typename StoragingType >
+void Graph<StoragingType>::setVertexData(int vNumber, StoragingType & data)
+{
+    if(vNumber >= (int)vertices->size() || vNumber < 0)
+        throw -1;
+    (*vertices)[vNumber].setData(data);
+}
+
+template< typename StoragingType >
+int Graph<StoragingType>::getVertexCount()
+{
+    return vertices->size();
+}
+
+template< typename StoragingType >
+int Graph<StoragingType>::getEdgesCount()
+{
+    int qOfEdges = 0;
+    for(int i = 0; i < vertices->size(); ++i)
+        qOfEdges += ((*vertices)[i]).edges.size();
+    return qOfEdges >> 1;
+}
 
 #endif // _GRAPH_H_

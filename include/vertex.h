@@ -1,37 +1,98 @@
 #ifndef _VERTEX_H_
 #define _VERTEX_H_
 
-#include <list>
-#include <vector>
-#include <utility>
-
-using std::list;
-using std::pair;
-using std::vector;
-
+#include "vertex_declaration.h"
 
 template <typename StoragingType>
-class Vertex
+Vertex<StoragingType>::Vertex()
 {
-    private:
-        list< pair< int, int > > edges; // pair< to, weight >, рёбра имеют положительные веса
-        StoragingType * data; // Полезные данные хранимые в вершине допускаю например координаты x [y, z] в данной работе ?уместно? поставить флаг(bool) посещения вершины
+    //data = 0;
+}
 
-    public:
-        Vertex();
-        explicit Vertex(StoragingType * vData);
-        Vertex(const Vertex & rhs);
-        ~Vertex(); // del data
+template <typename StoragingType>
+Vertex<StoragingType>::Vertex(StoragingType & vData)
+{
+    //data = new StoragingType();
+    data = vData;
+}
 
-        // Методы работы с рёбрами
-        void setEdge(int vNumber, int eWeight); // Ограничение 1 - отрицательных весов нет , нулевой вес означает удаление ребра; Ограничение 2 - нельзя соединять с несуществующей вершиной, т.е. number <
-        void setEdges(const vector<int>& vNumbers, const vector<int>& eWeights);
-        void removeEdge(int vNumber); // = setEdge(int number , 0);
-        const list< pair< int, int > > & getEdgesList() const;
+template <typename StoragingType>
+Vertex<StoragingType>::Vertex(const Vertex & rhs)
+{
+    //data = new StoragingType();
+    data = rhs.data;
+    edges = rhs.edges;
+}
 
-        // Методы работы с данными
-        void setData(StoragingType * data); // можно записать данные по вершине, предлагаю для лабы и д/з записывать факт посещения вершины
-        const StoragingType * getData() const;
-};
+template <typename StoragingType>
+Vertex<StoragingType>::~Vertex()
+{
+    //if(data != 0)
+    //    delete data;
+}
 
-#endif // _VERTEX_H_
+template <typename StoragingType>
+void Vertex<StoragingType>::setEdge(int vNumber, int eWeight)
+{
+    if(eWeight < 0) // !!!
+        return;
+
+    for(list< pair<int, int> >::iterator i = edges.begin(); i != edges.end(); ++i)
+        if(vNumber == i->first)
+        {
+            if(eWeight == 0)
+                edges.erase(i);
+            else
+                i->second = eWeight;
+            return;
+        }
+
+    if(eWeight == 0)
+        return; // Значит была попытка удалить несуществующее ребро
+
+    edges.push_back(pair<int, int>(vNumber, eWeight));
+}
+
+template <typename StoragingType>
+void Vertex<StoragingType>::setEdges(const vector<int>& vNumbers, const vector<int>& eWeights)
+{
+    if(vNumbers.size() != eWeights.size()) // !!!
+        return;
+
+    if(edges.empty())
+    {
+        for(int i = 0; i < vNumbers.size(); i++)
+            if(eWeights[i]  > 0)
+                edges.push_back(pair<int, int>(vNumbers[i], eWeights[i]));
+    }
+    else
+        for(int i = 0; i < vNumbers.size(); i++)
+            setEdge(vNumbers[i], eWeights[i]);
+}
+
+template <typename StoragingType>
+void Vertex<StoragingType>::removeEdge(int vNumber)
+{
+    setEdge(vNumber, 0);
+}
+
+template <typename StoragingType>
+list< pair< int, int > > & Vertex<StoragingType>::getEdgesList()
+{
+    return edges;
+}
+
+template <typename StoragingType>
+void Vertex<StoragingType>::setData(StoragingType &new_data)
+{
+    data = new_data;
+}
+
+template <typename StoragingType>
+StoragingType Vertex<StoragingType>::getData() const
+{
+    return data;
+}
+
+
+#endif // _VERTEX_DECLARATION_H_
