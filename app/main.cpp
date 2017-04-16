@@ -54,7 +54,7 @@ int main()
     */
 
 
-        list < Vertex<int> > waypoints = findShortestPath(g, 0, 6);
+        list < Vertex<int> > waypoints = findShortestPath(&g, 0, 6);
         for(list< Vertex<int> >::iterator i = waypoints.begin(); i != waypoints.end(); ++i)
             cout << "WayPoint: " << i->getData() << " have data = " << g.getVertex(i->getData()).getData() << endl;
         cout << endl;
