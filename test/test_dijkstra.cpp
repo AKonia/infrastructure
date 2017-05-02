@@ -1,3 +1,4 @@
+// Copyright 2017 AKonia
 #include <gtest/gtest.h>
 #include <list>
 #include <vector>
