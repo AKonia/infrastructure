@@ -21,13 +21,13 @@ int main()
     in.close();
 
     cout << "<<< Pathfinding based on PriorityQueue >>>" << endl;    
-    list < Vertex<int> > waypoints = findShortestPathPQ(g, 0, 6);
+    list < Vertex<int> > waypoints = findShortestPathPQ(&g, 0, 6);
     for(list< Vertex<int> >::iterator i = waypoints.begin(); i != waypoints.end(); ++i)
         cout << "WayPoint: " << i->getData() << endl;
     cout << endl;
 
     cout << "<<< Pathfinding based on AVLTrees >>>" << endl;    
-    waypoints = findShortestPathTree(g, 0, 6);
+    waypoints = findShortestPathTree(&g, 0, 6);
     for(list< Vertex<int> >::iterator i = waypoints.begin(); i != waypoints.end(); ++i)
         cout << "WayPoint: " << i->getData() << endl;
     cout << endl;
