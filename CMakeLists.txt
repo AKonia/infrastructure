@@ -25,6 +25,10 @@ enable_cxx_compiler_flag_if_supported("-Werror")
 
 include_directories(include)
 
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/graph.in"
+               "${CMAKE_CURRENT_BINARY_DIR}/graph.in"
+                @ONLY)
+
 add_subdirectory(3rdparty)
 add_subdirectory(src)
 add_subdirectory(app)

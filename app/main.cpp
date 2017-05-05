@@ -13,7 +13,7 @@ using std::ifstream;
 int main() {
   int n, from, to, weight;
   n = from = to = weight = 0;
-  ifstream in("../../graph.in");
+  ifstream in("graph.in");
 
   in >> n;
   Graph<bool> g(n);
