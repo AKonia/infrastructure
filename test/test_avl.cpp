@@ -43,13 +43,3 @@ TEST(AVL_Tree, can_get_min_and_max_values) {
   EXPECT_EQ(20, s.getMax());
   EXPECT_EQ(1, s.getMin());
 }
-
-TEST(AVL_Tree, can_use_pseudo_iterators_in_tree) {
-  akon::set<int> s;
-  for (int i = 20; i > 0; --i) ASSERT_NO_THROW((s.insert(i)));
-  int j = 1;
-  for (akon::set<int>::iterator i = s.begin();; ++i, ++j) {
-    EXPECT_EQ((*i), j);
-    if (i == s.end()) break;
-  }
-}

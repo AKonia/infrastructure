@@ -9,7 +9,7 @@
 #include <stdexcept>
 #include <algorithm>
 
-#include "avltree_iterator.h"
+#include "avltree_declaration.h"
 
 using std::queue;
 using std::stack;

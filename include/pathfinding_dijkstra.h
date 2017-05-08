@@ -28,8 +28,8 @@ list<Vertex<int> > findShortestPathTree(Graph<StoragingType> *rhs, int from,
   s.insert(make_pair(0, from));
 
   while (!s.isEmpty()) {
-    int currVtxWeight = (s.begin())->first;
-    int currVtxNumber = (s.begin())->second;
+    int currVtxWeight = (s.getMin()).first;
+    int currVtxNumber = (s.getMin()).second;
     s.erase(make_pair(currVtxWeight, currVtxNumber));
     if (!isVisited[currVtxNumber]) {
       isVisited[currVtxNumber] = true;
