@@ -11,11 +11,10 @@ using std::endl;
 using std::ifstream;
 
 int main() {
-  int n, from, to, weight;
-  n = from = to = weight = 0;
+  int n, from, to, weight, start, finish;
+  n = from = to = weight = start = finish = 0;
   ifstream in("graph.in");
-
-  in >> n;
+  in >> n >> start >> finish;
   Graph<bool> g(n);
   while (!in.eof()) {
     in >> from >> to >> weight;
@@ -24,14 +23,14 @@ int main() {
   in.close();
 
   cout << "<<< Pathfinding based on PriorityQueue >>>" << endl;
-  list<Vertex<int> > waypoints = findShortestPathPQ(&g, 0, 6);
+  list<Vertex<int> > waypoints = findShortestPathPQ(&g, start % n, finish % n);
   for (list<Vertex<int> >::iterator i = waypoints.begin(); i != waypoints.end();
        ++i)
     cout << "WayPoint: " << i->getData() << endl;
   cout << endl;
 
   cout << "<<< Pathfinding based on AVLTrees >>>" << endl;
-  waypoints = findShortestPathTree(&g, 0, 6);
+  waypoints = findShortestPathTree(&g, start % n, finish % n);
   for (list<Vertex<int> >::iterator i = waypoints.begin(); i != waypoints.end();
        ++i)
     cout << "WayPoint: " << i->getData() << endl;
