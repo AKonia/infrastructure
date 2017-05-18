@@ -1,13 +1,14 @@
-#ifndef KRUSKAL_H
-#define KRUSKAL_H
+// Copyright 2017 AKonia
+#ifndef INCLUDE_KRUSKAL_H_
+#define INCLUDE_KRUSKAL_H_
 
-#include "graph.h"
+#include <cstdint>
 #include <list>
 #include <utility>
-#include <cstdint>
+#include "graph.h"
 using std::list;
 using std::pair;
 
-list< pair<uint32_t, uint32_t> > findMinSpanTreeKruskal(const Graph & g);
+list<pair<uint32_t, uint32_t> > findMinSpanTreeKruskal(const Graph& g);
 
-#endif // KRUSKAL_H
+#endif  // INCLUDE_KRUSKAL_H_

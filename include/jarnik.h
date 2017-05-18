@@ -1,14 +1,15 @@
-#ifndef PRIM_H
-#define PRIM_H
+// Copyright 2017 AKonia
+#ifndef INCLUDE_JARNIK_H_
+#define INCLUDE_JARNIK_H_
 
-#include "graph_mat_ident.h"
+#include <cstdint>
 #include <list>
 #include <utility>
-#include <cstdint>
+#include "graph_mat_ident.h"
 
 using std::list;
 using std::pair;
 
-list< pair<uint32_t, uint32_t> > findMinSpanTreeJarnik(const GraphMatIdent &gid);
+list<pair<uint32_t, uint32_t> > findMinSpanTreeJarnik(const GraphMatIdent &gid);
 
-#endif // PRIM_H
+#endif  // INCLUDE_JARNIK_H_

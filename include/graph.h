@@ -1,23 +1,24 @@
-#ifndef GRAPH_H
-#define GRAPH_H
+// Copyright 2017 AKonia
+#ifndef INCLUDE_GRAPH_H_
+#define INCLUDE_GRAPH_H_
 
 #include <cstdint>
 
-class Graph
-{
-private:
-    uint32_t size;
-    uint32_t ** connMat;
-public:
-    Graph(uint32_t size);
-    Graph(const Graph & rhs);
-    ~Graph();
+class Graph {
+ private:
+  uint32_t size;
+  uint32_t** connMat;
 
-    void setEdge(uint32_t vFirst, uint32_t vSecond, uint32_t eWeight);
-    void unsetEdge(uint32_t vFirst, uint32_t vSecond);
+ public:
+  explicit Graph(uint32_t size);
+  explicit Graph(const Graph& rhs);
+  ~Graph();
 
-    uint32_t getEdgeWeight(uint32_t vFirst, uint32_t vSecond) const;
-    uint32_t getSize() const;
+  void setEdge(uint32_t vFirst, uint32_t vSecond, uint32_t eWeight);
+  void unsetEdge(uint32_t vFirst, uint32_t vSecond);
+
+  uint32_t getEdgeWeight(uint32_t vFirst, uint32_t vSecond) const;
+  uint32_t getSize() const;
 };
 
-#endif // GRAPH_H
+#endif  // INCLUDE_GRAPH_H_
