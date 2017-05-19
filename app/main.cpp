@@ -105,7 +105,7 @@ void redrawMem(int mode = 0) {
     snprintf(TestStr, sizeof(TestStr), "%d", i->first);
     Size textSize = getTextSize(TestStr, 1, 1, 1, NULL);
     putText(canvas, TestStr, Point(i->second.x - textSize.width,
-                                   i->second.y + textSize.height / 2),
+                                   i->second.y + textSize.height / 2 + 5),
             CV_FONT_NORMAL, 1, Scalar(255, 255, 255), 1, 1);
     circle(canvas, Point(i->second.x, i->second.y), 30, Scalar(255, 128, 128),
            1, CIRCLE_RADIUS, 0);
@@ -132,8 +132,8 @@ static void onMouse(int event, int x, int y, int a, void *vvvvv) {
            Point(x, y), Scalar(0, 255, 0), 2, 1);
       snprintf(TestStr, sizeof(TestStr), "%d", slider);
       putText(canvas, TestStr,
-              Point((cords[0] + x) / 2 + (20 * line_len_y / (1 + linelen)),
-                    (cords[1] + y) / 2 - (20 * line_len_x / (1 + linelen))),
+              Point((cords[0] + x) / 2 + ((0 * line_len_y) / (1 + linelen)),
+                    (cords[1] + y) / 2 - ((0 * line_len_x) / (1 + linelen))),
               CV_FONT_NORMAL, 1, Scalar(255, 255, 255), 1, 1);
       imshow(WINDOW_NAME, canvas);
     }
@@ -145,7 +145,7 @@ static void onMouse(int event, int x, int y, int a, void *vvvvv) {
 static_cast<int>(vertices.size()));
       Size textSize = getTextSize(TestStr, 1, 1, 1, NULL);
       putText(canvas, TestStr,
-              Point(x - textSize.width, y + textSize.height / 2),
+              Point(x - textSize.width, y + textSize.height / 2 + 5),
               CV_FONT_NORMAL, 1, Scalar(255, 255, 255), 1, 1);
       circle(canvas, Point(x, y), 30, Scalar(255, 128, 128), 1, CIRCLE_RADIUS,
              0);
@@ -169,7 +169,7 @@ static_cast<int>(vertices.size()));
       if (vertices.size() >= MAX_VERTEX_COUNT) break;
       flag1 = false;
       if (!vertexStarted) break;
-      vertices.push_back(make_pair(vertices.size(), Point(x + 10, y - 5)));
+      vertices.push_back(make_pair(vertices.size(), Point(x, y)));
       redrawMem();
       vertexStarted = false;
       break;
